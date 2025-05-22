@@ -1,0 +1,13 @@
+{
+  name email-api,
+  version 1.0.0,
+  main srcapp.js,
+  scripts {
+    start node srcapp.js
+  },
+  dependencies {
+    express ^4.18.2,
+    nodemailer ^6.9.1,
+    dotenv ^16.3.1
+  }
+}

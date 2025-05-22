@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debitoren Verkaufsrechnung</title>
+  <style>
+    :root {
+      --stiftung-color: #053e54;
+    }
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-top: 8px solid var(--stiftung-color);
+    }
+    h1 {
+      color: var(--stiftung-color);
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+    button {
+      margin-top: 2rem;
+      background-color: var(--stiftung-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #042f3e;
+    }
+    .product-section {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      background-color: #f9f9f9;
+    }
+    .subarticle-group {
+      margin-top: 0.5rem;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Stiftung David Dienst Schweiz</h1>
+    <h1>Debitoren Verkaufsrechnung</h1>
+    <form id="serviceForm">
+      <label>Anrede *</label>
+      <input type="radio" name="anrede" value="Herr"> Herr
+      <input type="radio" name="anrede" value="Frau"> Frau
+      <input type="radio" name="anrede" value="Firma"> Firma
+
+      <label>Wie heisst die Firma?</label>
+      <input type="text" name="firma">
+
+      <label>Vorname</label>
+      <input type="text" name="vorname">
+
+      <label>Nachname</label>
+      <input type="text" name="nachname">
+
+      <label>Strasse *</label>
+      <input type="text" name="strasse" required>
+
+      <label>PLZ *</label>
+      <input type="number" name="plz" required>
+
+      <label>Ort *</label>
+      <input type="text" name="ort" required>
+
+      <label>Land *</label>
+      <input type="text" name="land" required>
+
+      <label>Telefonnummer</label>
+      <input type="tel" name="telefon">
+
+      <label>Handynummer</label>
+      <input type="tel" name="handy">
+
+      <label>E-Mail Adresse</label>
+      <input type="email" name="email">
+
+      <div id="productContainer"></div>
+      <div class="buttons">
+        <button type="button" onclick="addProductSection()">+ Artikel hinzufügen</button>
+        <button type="submit">Absenden</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const subartikelDaten = {
+      "SOBE (Sozialbegleitung)": [
+        "10100 SOBE - Aufsuchende Sozialbegleitung",
+        "10101 SOBE - telefonische Fachberatung und Abklärungen",
+        "10102 SOBE - Administration und Berichtswesen",
+        "10103 SOBE - Standortgespräche und Auftragsklärung",
+        "10104 SOBE - Fahrspesen"
+      ],
+      "NAKOS": [
+        "11000 NAKOS Entlastungs- und Assistenzdienste",
+        "11001 NAKOS Bedarfsabklärung",
+        "11002 NAKOS - Telefonberatung",
+        "11003 NAKOS - Standortgespräche, und Auftragsklärung",
+        "11004 NAKOS - Fahrspesen",
+        "11005 NAKOS - Administration und Berichtswesen"
+      ],
+      "Psychosoziale Begleitung": [
+        "12000 psychosoziale Begleitung",
+        "12001 aufsuchende psychosoziale Begleitung",
+        "12003 telefonische psychosoziale Begleitung/Unterstützung",
+        "12004 Bereitschaftsdienst Nacht- und Wochenendpiket Psychosoz.Arbeit Basisbeitrag",
+        "12005 Bereitschaftsdienst Nacht- und Wochenendpiket Psychosoz.Arbeit Fallpauschale",
+        "12006 Psychosoz. - Administration und Berichtswesen",
+        "12007 Fahrspesen aufsuchende psychosoziale Begleitung",
+        "12008 Standortgespräche, Abklärungen, Auftragsklärung psychosoziale Arbeit"
+      ],
+      "Vorträge und Workshops": [
+        "14000 Vorträge, Impulsreferate, erlebnispädagogische Workshops",
+        "14001 benötigtes Material, technik, Equipment",
+        "14002 Fahrspesen"
+      ],
+      "Bistro Inklusive": [
+        "15000 Bistro Inklusive - Event-Catering",
+        "15001 Bistro Inklusive - Konsumation"
+      ],
+      "Raumvermietung": [
+        "16000 Raumvermietung - Sitzungszimmer 1",
+        "16001 Raumvermietung - Seminarraum",
+        "16002 Raumvermietung - Kreativraum 1",
+        "16003 Raumvermietung - Kreativraum 2",
+        "16004 Raumvermietung - Raum der Stille",
+        "16005 Vermietung - Flipchart inkl. Papier und Stifte",
+        "16006 Vermietung - Samsung Flip Pro 85-Zoll Digitales Whiteboard",
+        "16007 mobiles Lautsprechersystem JBL EON Compact mit Bluetooth Connection",
+        "16008 Mikrofon SM58 - Kabelgebunden (inkl. XLR-Kabel)"
+      ],
+      "Dienstleistungen Dritter": [
+        "17000 Dienstleistungen dritter für Pietro Londino",
+        "17001 Dienstleistung dritter für Marco Jörg",
+        "17002 Coaching / Mentoring"
+      ]
+    };
+
+    let productCount = 0;
+
+    function addProductSection() {
+      if (productCount >= 7) {
+        alert("Sie können maximal 7 Hauptkategorien auswählen.");
+        return;
+      }
+
+      const container = document.getElementById('productContainer');
+      const index = productCount++;
+
+      const section = document.createElement('div');
+      section.className = 'product-section';
+      section.setAttribute('data-index', index);
+
+      const productOptions = Object.keys(subartikelDaten).map(product =>
+        `<option value="${product}">${product}</option>`
+      ).join('');
+
+      section.innerHTML = `
+        <label>Produkt auswählen:</label>
+        <select name="produkt_${index}" onchange="updateSubartikel(this, ${index})" required>
+          <option value="">-- bitte wählen --</option>
+          ${productOptions}
+        </select>
+        <label>Menge</label>
+        <input type="number" name="menge_${index}" required>
+        <label>Preis (CHF)</label>
+        <input type="number" step="0.01" name="preis_${index}" required>
+        <label>Bemerkung</label>
+        <textarea name="bemerkung_${index}"></textarea>
+        <div class="subarticle-group" id="subartikel_${index}">
+          <!-- Unterartikel erscheinen hier -->
+        </div>
+      `;
+
+      container.appendChild(section);
+    }
+
+    function updateSubartikel(select, index) {
+      const produkt = select.value;
+      const targetDiv = document.getElementById(`subartikel_${index}`);
+      targetDiv.innerHTML = '';
+
+      if (produkt && subartikelDaten[produkt]) {
+        targetDiv.innerHTML = '<strong>Unterartikel:</strong>' +
+          subartikelDaten[produkt].map(sub =>
+            `<label><input type="checkbox" name="subartikel_${index}[]" value="${sub}"> ${sub}</label>`
+          ).join('');
+      }
+    }
+  </script>
+</body>
+</html>
