@@ -6,5 +6,6 @@ services:
       - "3000:3000"
 
     volumes:
-      - /path/to/your/actual/project/folder/.env:/app/.env:ro # Mountet die .env-Datei
+      - /path/to/your/actual/project/folder/.env:/app/.env:ro
     restart: always
+S
