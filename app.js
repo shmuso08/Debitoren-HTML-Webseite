@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors'); // Importiere die CORS-Middleware
-const { sendEmail } = require('./emailService');
+const { sendEmail } = require('./src/emailService');
 
 const app = express();
 
@@ -15,9 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Einfache Root-Route, um zu überprüfen, ob der Server läuft
 app.get('/', (req, res) => {
-  res.send('Express API for forms is running.');
+  res.sendFile("index.html", { root: __dirname }); // Sende die index.html-Datei als Antwort
 });
-
 // POST-Route zum Empfangen der Formulardaten und Senden der E-Mail
 app.post('/submit', async (req, res) => {
   try {
@@ -34,3 +33,4 @@ app.post('/submit', async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Server läuft auf Port ${process.env.PORT}`);
 });
+

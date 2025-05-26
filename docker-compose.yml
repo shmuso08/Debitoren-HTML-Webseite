@@ -6,6 +6,5 @@ services:
       - "3000:3000"
 
     volumes:
-      - /path/to/your/actual/project/folder/.env:/app/.env:ro
+      - ./.env:/app/.env
     restart: always
-S
