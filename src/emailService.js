@@ -1,14 +1,14 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
-const { createEmailHtml } = require('./emailTemplate'); // <-- NEUE ZEILE: Importiere die HTML-Vorlage
+const { createEmailHtml } = require('./emailTemplate');
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: parseInt(process.env.SMTP_PORT),
   secure: process.env.SMTP_SECURE === 'true',
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: 'intranet@david-dienst.ch',
+    pass: '&x&oJ#tgOW7tSs&V',
   },
   tls: {
     rejectUnauthorized: false

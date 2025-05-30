@@ -95,6 +95,7 @@ function createEmailHtml(formData) {
 
       // Formatierung der Schlüssel für bessere Lesbarkeit
       let displayKey = key.replace(/_(\d+)/g, ' $1') // z.B. produkt_0 -> produkt 0
+                        
                          .replace(/produkt/g, 'Produkt')
                          .replace(/menge/g, 'Menge')
                          .replace(/preis/g, 'Preis')
