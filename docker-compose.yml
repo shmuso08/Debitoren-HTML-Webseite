@@ -1,10 +1,12 @@
-# ...
+version: "3.8"
+
 services:
   express-api:
     build: .
     ports:
       - "3000:3000"
-
-    volumes:
-      - ./.env:/app/.env
+    env_file:  # <-- NEU/KORRIGIERT: Umgebungsvariablen aus .env laden
+      - .env
+    # volumes: # <-- ENTFERNT/AUSKOMMENTIERT: Diese Zeile für .env verursachte Probleme
+    #   - ./.env:/app/.env
     restart: always
