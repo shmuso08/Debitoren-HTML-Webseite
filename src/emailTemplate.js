@@ -96,12 +96,22 @@ function createEmailHtml(formData) {
       // Formatierung der Schlüssel für bessere Lesbarkeit
       let displayKey = key.replace(/_(\d+)/g, ' $1') // z.B. produkt_0 -> produkt 0
                         
-                         .replace(/produkt/g, 'Produkt')
-                         .replace(/menge/g, 'Menge')
-                         .replace(/preis/g, 'Preis')
-                         .replace(/bemerkung/g, 'Bemerkung')
-                         .replace(/subartikel/g, 'Unterartikel');
-
+                            .replace(/anrede/g, 'Anrede')
+                            .replace(/firma/g, 'Firma')
+                            .replace(/vorname/g, 'Vorname')
+                            .replace(/nachname/g, 'Nachname')
+                            .replace(/strasse/g, 'Strasse')
+                            .replace(/plz/g, 'PLZ')
+                            .replace(/ort/g, 'Ort')
+                            .replace(/land/g, 'Land')
+                            .replace(/telefon/g, 'Telefon')
+                            .replace(/handy/g, 'Handy')
+                            .replace(/email/g, 'E-Mail')
+                            .replace(/produkt/g, 'Produkt')
+                            .replace(/menge/g, 'Menge')
+                            .replace(/preis/g, 'Preis')
+                            .replace(/bemerkung/g, 'Bemerkung')
+                            .replace(/subartikel/g, 'Unterartikel');
       // Spezialbehandlung für Array-Werte (z.B. Checkboxen)
       if (Array.isArray(value)) {
         value = value.join('<br>'); // Füge Array-Elemente mit Zeilenumbruch zusammen
@@ -120,7 +130,7 @@ function createEmailHtml(formData) {
   htmlContent += `
                     </tbody>
                 </table>
-                <p>Mit freundlichen Grüßen,</p>
+                <p>Mit freundlichen Grüssen,</p>
                 <p>Stiftung David Dienst Email System</p>
                 <p>Erstellt von Shriniketan Muthukumaran</p>
             </div>
