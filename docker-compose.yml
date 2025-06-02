@@ -4,7 +4,7 @@ services:
   express-api:
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3001"
     env_file:  # <-- NEU/KORRIGIERT: Umgebungsvariablen aus .env laden
       - .env
     # volumes: # <-- ENTFERNT/AUSKOMMENTIERT: Diese Zeile für .env verursachte Probleme

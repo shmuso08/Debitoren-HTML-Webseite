@@ -228,7 +228,7 @@
       console.log('Sende Daten:', data); // Zeigt die Daten, die gesendet werden
 
       try {
-        const response = await fetch('http://localhost:3000/submit', { // Die URL deines Express-Servers
+        const response = await fetch('http://192.168.180.129:3001/submit', { // Die URL deines Express-Servers
           method: 'POST',
           headers: {
             'Content-Type': 'application/json' // Wichtig: Daten als JSON senden

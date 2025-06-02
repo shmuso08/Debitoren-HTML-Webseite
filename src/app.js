@@ -36,7 +36,7 @@ app.post('/submit', async (req, res) => {
 });
 
 // Starte den Server auf dem definierten Port (mit Fallback)
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server läuft auf Port ${PORT}`);
 });
